@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Road Crash Data Victoria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Open Road Crash Data Victoria</h1>
+        <nav>
+            <ul>
+                <li><a href="#hotspots">Crash Hotspots</a></li>
+                <li><a href="#preventive">Preventive Measures</a></li>
+                <li><a href="#insights">Data Insights</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hotspots">
+            <h2>Crash Hotspots</h2>
+            <div id="map"></div>
+        </section>
+
+        <section id="preventive">
+            <h2>Preventive Measures</h2>
+            <div class="preventive-container">
+                <div class="preventive-item" onclick="showDetail('seatbelt')">
+                    <img src="seatbelt-icon.png" alt="Seat Belt" />
+                    <h3>Wear Seat Belts</h3>
+                    <p>Click to learn more</p>
+                </div>
+                <div class="preventive-item" onclick="showDetail('speed')">
+                    <img src="speed-icon.png" alt="Speed Limit" />
+                    <h3>Follow Speed Limits</h3>
+                    <p>Click to learn more</p>
+                </div>
+                <div class="preventive-item" onclick="showDetail('distraction')">
+                    <img src="distraction-icon.png" alt="Distractions" />
+                    <h3>Avoid Distractions</h3>
+                    <p>Click to learn more</p>
+                </div>
+                <div class="preventive-item" onclick="showDetail('weather')">
+                    <img src="weather-icon.png" alt="Weather" />
+                    <h3>Be Weather Aware</h3>
+                    <p>Click to learn more</p>
+                </div>
+            </div>
+            <div id="preventive-detail" class="preventive-detail"></div>
+        </section>
+        
+
+        <section id="insights">
+            <h2>Data Insights</h2>
+            <div class="chart">
+                <p>Charts and graphs will be displayed here.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Welcome to the Open Road Crash Data Victoria website. Our goal is to provide valuable insights into road safety and help reduce crashes through data-driven solutions.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Open Road Crash Data Victoria. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var map = L.map('map').setView([-37.8136, 144.9631], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([-37.8136, 144.9631]).addTo(map)
+                .bindPopup('Melbourne, Victoria')
+                .openPopup();
+        });
+      
+    function showDetail(measure) {
+        const detailDiv = document.getElementById('preventive-detail');
+        let content = '';
+
+        switch (measure) {
+            case 'seatbelt':
+                content = '<h3>Wear Seat Belts</h3><p>Wearing seat belts is crucial for safety. It significantly reduces the risk of injury during a crash.</p>';
+                break;
+            case 'speed':
+                content = '<h3>Follow Speed Limits</h3><p>Adhering to speed limits helps in maintaining control over your vehicle and reduces the likelihood of accidents.</p>';
+                break;
+            case 'distraction':
+                content = '<h3>Avoid Distractions</h3><p>Distractions like using a phone can lead to accidents. Stay focused and avoid any activities that could divert your attention.</p>';
+                break;
+            case 'weather':
+                content = '<h3>Be Weather Aware</h3><p>Adjust your driving according to weather conditions. For example, reduce speed in rain or fog for better visibility and control.</p>';
+                break;
+            default:
+                content = '<p>Select a preventive measure to see more details.</p>';
+        }
+
+        detailDiv.innerHTML = content;
+        detailDiv.classList.add('active');
+    }
+
+
+    </script>
+</body>
+</html>
